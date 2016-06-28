@@ -1,12 +1,14 @@
 curl -d 'action=bet_request&game_state={
   "players":[
     {
+        "status":"active"
     },
     {
-      "hole_cards":[
-        {"rank":"A", "suit":"hearts"},
-        {"rank":"A", "suit":"spades"}
-      ]
+        "status":"active",
+        "hole_cards":[
+            {"rank":"A", "suit":"hearts"},
+            {"rank":"A", "suit":"spades"}
+        ]
     }
   ],
   "in_action":1,
