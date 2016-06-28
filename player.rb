@@ -16,11 +16,23 @@ class Player
 
     hand = Hand.new(me['hole_cards'], game_state['community_cards'])
 
-    if hand.high_pocket_pair? # || hand.high_suited_pocket_connector?
-      10000
+    if players_in_game(game_state) > 2
+      if hand.pocket_pair? && hand.highest_pocket_card_value >= 10
+        10000
+      else
+        0
+      end
     else
-      0
+      if (hand.pocket_pair? && hand.highest_pocket_card_value >= 6) || (hand.suited_pocket_connector? && hand.highest_pocket_card_value >= 13)
+        10000
+      else
+        0
+      end
     end
+  end
+
+  def players_in_game(game_state)
+    game_state['players'].select { |player| player['status'] != 'out' }.count
   end
 
   def showdown(game_state)
