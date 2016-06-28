@@ -12,3 +12,4 @@ curl -d 'action=bet_request&game_state={
   "in_action":1,
   "community_cards": []
 }' localhost:8090
+echo ""

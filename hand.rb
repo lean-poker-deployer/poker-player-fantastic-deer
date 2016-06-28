@@ -11,6 +11,22 @@ class Hand
   end
 
   def high_pocket_pair?
-    pocket_pair? && @hole_cards[0].value >= 10
+    pocket_pair? && highest_pocket_card_value >= 10
+  end
+
+  def highest_pocket_card_value
+    @hole_cards.map { |card| card.value }.max
+  end
+
+  def pocket_connector?
+    (@hole_cards[0].value - @hole_cards[1].value).abs == 1
+  end
+
+  def suited_pocket?
+    @hole_cards[0].suit == @hole_cards[1].suit
+  end
+
+  def high_suited_pocket_connector?
+    pocket_connector? && suited_pocket? && highest_pocket_card_value >= 13
   end
 end
