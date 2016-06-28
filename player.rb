@@ -32,7 +32,7 @@ class Player
     if (hand(game_state).pocket_pair? && hand(game_state).highest_pocket_card_value >= 6) || (hand(game_state).suited_pocket_connector? && hand(game_state).highest_pocket_card_value >= 13)
       10000
     else
-      if pre_flop(game_state)
+      if pre_flop?(game_state)
         if hand(game_state).highest_pocket_card_value > 7 && call(game_state) < me(game_state)['stack'] / 4
           call(game_state)
         else
@@ -50,7 +50,7 @@ class Player
     game_state['current_by_in'] - me(game_state)['bet']
   end
 
-  def pre_flop(game_state)
+  def pre_flop?(game_state)
     game_state['community_cards'].count == 0
   end
 
