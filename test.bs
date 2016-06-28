@@ -1,0 +1,14 @@
+curl -d 'action=bet_request&game_state={
+  "players":[
+    {
+    },
+    {
+      "hole_cards":[
+        {"rank":"A", "suit":"hearts"},
+        {"rank":"A", "suit":"spades"}
+      ]
+    }
+  ],
+  "in_action":1,
+  "community_cards": []
+}' localhost:8090
