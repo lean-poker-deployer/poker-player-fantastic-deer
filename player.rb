@@ -16,7 +16,7 @@ class Player
 
     hand = Hand.new(me['hole_cards'], game_state['community_cards'])
 
-    if hand.high_pocket_pair? || hand.high_suited_pocket_connector?
+    if hand.high_pocket_pair? # || hand.high_suited_pocket_connector?
       10000
     else
       0
