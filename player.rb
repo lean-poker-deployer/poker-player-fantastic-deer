@@ -10,7 +10,7 @@ class Player
     if hole_cards[0]['rank'] == hole_cards[1]['rank']
       10000
     else
-      if rand > 0.8
+      if rand > 0.5
         10000
       else
         0
