@@ -1,7 +1,7 @@
 
 class Player
 
-  VERSION = "Default Ruby folding player"
+  VERSION = "Bluff a lot"
 
   def bet_request(game_state)
     me = game_state['players'][game_state['in_action']]
@@ -10,7 +10,11 @@ class Player
     if hole_cards[0]['rank'] == hole_cards[1]['rank']
       10000
     else
-      0
+      if rand > 0.8
+        10000
+      else
+        0
+      end
     end
   end
 
