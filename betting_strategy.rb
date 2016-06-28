@@ -14,29 +14,39 @@ class BettingStrategy
   end
 
   def normal_strategy
-    if hand.pocket_pair? && hand.highest_pocket_card_value >= 10
-      10000
-    else
-      0
-    end
+    return allin if pocket_pair_with_value_at_least?(10)
+    0
+  end
+
+  def allin
+    10000
+  end
+
+  def pocket_pair_with_value_at_least?(min_value)
+    hand.pocket_pair? && hand.highest_pocket_card_value >= min_value
   end
 
   def heads_up_strategy
-    if (hand.pocket_pair? && hand.highest_pocket_card_value >= 6) || (hand.suited_pocket_connector? && hand.highest_pocket_card_value >= 13)
-      10000
+    if pre_flop?
+      return allin if pocket_pair_with_value_at_least?(6) || (suited_connector_with_value_at_least?(13))
+      return call if highest_card_with_value_at_least?(7) && cheap_call?
     else
-      if pre_flop?
-        if hand.highest_pocket_card_value > 7 && call < me['stack'] / 4
-          call
-        else
-          0
-        end
-      else
-        return call if hand.pair_with_my_card? && call < me['stack'] / 4
-        return 10000 if hand.two_pair_with_my_card?
-        0
-      end
+      return call if hand.pair_with_my_card? && cheap_call?
+      return allin if hand.two_pair_with_my_card?
     end
+    0
+  end
+
+  def cheap_call?
+    call < me['stack'] / 4
+  end
+
+  def highest_card_with_value_at_least?(min_value)
+    hand.highest_pocket_card_value > min_value
+  end
+
+  def suited_connector_with_value_at_least?(min_value)
+    hand.suited_pocket_connector? && hand.highest_pocket_card_value >= min_value
   end
 
   def call
