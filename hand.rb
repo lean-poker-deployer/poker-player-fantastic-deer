@@ -9,4 +9,8 @@ class Hand
   def pocket_pair?
     @hole_cards[0].value == @hole_cards[1].value
   end
+
+  def high_pocket_pair?
+    pocket_pair? && @hole_cards[0].value >= 10
+  end
 end
