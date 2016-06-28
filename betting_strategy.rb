@@ -15,15 +15,7 @@ class BettingStrategy
 
   def normal_strategy
     return allin if pocket_pair_with_value_at_least?(10)
-    0
-  end
-
-  def allin
-    10000
-  end
-
-  def pocket_pair_with_value_at_least?(min_value)
-    hand.pocket_pair? && hand.highest_pocket_card_value >= min_value
+    check_or_fold
   end
 
   def heads_up_strategy
@@ -34,7 +26,19 @@ class BettingStrategy
       return call if hand.pair_with_my_card? && cheap_call?
       return allin if hand.two_pair_with_my_card?
     end
+    check_or_fold
+  end
+
+  def pocket_pair_with_value_at_least?(min_value)
+    hand.pocket_pair? && hand.highest_pocket_card_value >= min_value
+  end
+
+  def check_or_fold
     0
+  end
+
+  def allin
+    10000
   end
 
   def cheap_call?
