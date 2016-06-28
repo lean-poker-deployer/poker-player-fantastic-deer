@@ -6,9 +6,10 @@ class Player
 
   def bet_request(game_state)
     me = game_state['players'][game_state['in_action']]
-    hole_cards = me['hole_cards']
 
-    if hole_cards[0]['rank'] == hole_cards[1]['rank']
+    hand = Hand.new(me['hole_cards'], game_state['community_cards'])
+
+    if hand.pocket_pair?
       10000
     else
       if rand > 0.5
